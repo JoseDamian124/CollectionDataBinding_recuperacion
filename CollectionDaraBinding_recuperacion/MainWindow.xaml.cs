@@ -20,9 +20,77 @@ namespace CollectionDaraBinding_recuperacion
     /// </summary>
     public partial class MainWindow : Window
     {
+        private List<User>users;
         public MainWindow()
         {
             InitializeComponent();
+            LoadUsers();
+        }
+        private void LoadUsers()
+        {
+            users = new List<User>();
+            users.Add(new User() { Name = "Peter Parker"});
+            users.Add(new User() { Name = "Tony Stark" });
+            users.Add(new User() { Name = "Natasha Romanoff" });
+
+            lista.ItemsSource = users;
+        }
+
+        private void agregarButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (!string.IsNullOrEmpty(userTextBox.Text))
+            {
+                User user = new User() { Name = userTextBox.Text };
+                users.Add(user);
+                lista.SelectedItem = user;
+                UpdateView();
+            }
+        }
+
+        private void modificarButton_Click(object sender, RoutedEventArgs e)
+        {
+            if(lista.SelectedItem !=null)
+            {
+                User user = lista.SelectedItem as User;
+                user.Name = userTextBox.Text;
+                lista.SelectedItem = user;
+                UpdateView();
+
+            }
+        }
+
+        private void eliminarButton_Click(object sender, RoutedEventArgs e)
+        {
+            if(lista.SelectedItem !=null)
+            {
+                users.Remove(lista.SelectedItem as User);
+                userTextBox.Text = "";
+                UpdateView();
+            }
+            
+        }
+        private void UpdateView()
+        {
+            lista.Items.Refresh();
+            if(users.Count > 0)
+            {
+                eliminarButton.IsEnabled = true;
+                modificarButton.IsEnabled = true;
+            }
+            else
+            {
+                lista.SelectedIndex = -1;
+                eliminarButton.IsEnabled = false;
+                agregarButton.IsEnabled = false;
+            }
+        }
+
+        private void lista_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if(lista.SelectedItem !=null)
+            {
+                userTextBox.Text = (lista.SelectedItem as User).Name;
+            }
         }
     }
 }

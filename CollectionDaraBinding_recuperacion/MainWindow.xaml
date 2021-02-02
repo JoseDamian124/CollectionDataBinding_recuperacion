@@ -5,8 +5,52 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CollectionDaraBinding_recuperacion"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
-        
-    </Grid>
+        Title="Data Binding a una coleccion" Height="200" Width="300">
+    <DockPanel Margin="4">
+        <Border DockPanel.Dock="Right"
+                BorderThickness="2"
+                BorderBrush="LightBlue">
+            <StackPanel Margin="4">
+
+                <Button Content="Agregar"
+                        x:Name="agregarButton"
+                        Margin="4"
+                       Click="agregarButton_Click"/>
+                <Button Content="Modificar"
+                        x:Name="modificarButton"
+                        Margin="4"
+                       Click="modificarButton_Click"/>
+                <Button Content="Eliminar"
+                        x:Name="eliminarButton"
+                        Margin="4"
+                      Click="eliminarButton_Click"/>
+            </StackPanel>
+        </Border>
+
+        <Border DockPanel.Dock="Top"
+                BorderThickness="2"
+                BorderBrush="LightBlue">
+            <DockPanel Margin="4">
+                <Label DockPanel.Dock="Left"
+                       Content="Usuario:"
+                       Margin="2"/>
+                <TextBox x:Name="userTextBox"
+                         Margin="2"
+                         VerticalAlignment="Center"
+                         />
+            </DockPanel>
+        </Border>
+
+
+        <ListBox DockPanel.Dock="Top"
+                 x:Name="lista"
+                 Margin="4"
+                 SelectionMode="Single"
+                 DisplayMemberPath="Name"
+                 SelectionChanged="lista_SelectionChanged"
+                 />
+
+
+
+    </DockPanel>
 </Window>
