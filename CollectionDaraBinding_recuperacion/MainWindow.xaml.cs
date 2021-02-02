@@ -12,6 +12,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Collections.ObjectModel;
+using ChangeNotificationSample;
 
 namespace CollectionDaraBinding_recuperacion
 {
@@ -20,20 +22,21 @@ namespace CollectionDaraBinding_recuperacion
     /// </summary>
     public partial class MainWindow : Window
     {
-        private List<User>users;
+        private ObservableCollection<User>users;
         public MainWindow()
         {
             InitializeComponent();
             LoadUsers();
+            DataContext = users;
         }
         private void LoadUsers()
         {
-            users = new List<User>();
+            users = new ObservableCollection <User>();
             users.Add(new User() { Name = "Peter Parker"});
             users.Add(new User() { Name = "Tony Stark" });
             users.Add(new User() { Name = "Natasha Romanoff" });
 
-            lista.ItemsSource = users;
+           // lista.ItemsSource = users;
         }
 
         private void agregarButton_Click(object sender, RoutedEventArgs e)
@@ -49,14 +52,10 @@ namespace CollectionDaraBinding_recuperacion
 
         private void modificarButton_Click(object sender, RoutedEventArgs e)
         {
-            if(lista.SelectedItem !=null)
-            {
-                User user = lista.SelectedItem as User;
-                user.Name = userTextBox.Text;
-                lista.SelectedItem = user;
-                UpdateView();
-
-            }
+            User user = new User() { Name = "Nuevo usuario" };
+            users.Add(user);
+            lista.SelectedItem = user;
+            UpdateView();
         }
 
         private void eliminarButton_Click(object sender, RoutedEventArgs e)
@@ -64,7 +63,7 @@ namespace CollectionDaraBinding_recuperacion
             if(lista.SelectedItem !=null)
             {
                 users.Remove(lista.SelectedItem as User);
-                userTextBox.Text = "";
+                //userTextBox.Text = "";
                 UpdateView();
             }
             

@@ -37,6 +37,7 @@
                 <TextBox x:Name="userTextBox"
                          Margin="2"
                          VerticalAlignment="Center"
+                         Text="{Binding Name}"
                          />
             </DockPanel>
         </Border>
@@ -47,7 +48,8 @@
                  Margin="4"
                  SelectionMode="Single"
                  DisplayMemberPath="Name"
-                 SelectionChanged="lista_SelectionChanged"
+                 IsSynchronizedWithCurrentItem="True"
+                 ItemsSource="{Binding}"
                  />
 
 
